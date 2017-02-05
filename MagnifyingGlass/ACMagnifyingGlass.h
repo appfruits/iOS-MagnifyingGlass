@@ -9,7 +9,7 @@
 
 @interface ACMagnifyingGlass : UIView
 
-@property (nonatomic, retain) UIView *viewToMagnify;
+@property (nonatomic, weak) UIView *viewToMagnify;
 @property (nonatomic, assign) CGPoint touchPoint;
 @property (nonatomic, assign) CGPoint touchPointOffset;
 @property (nonatomic, assign) CGFloat scale; 
