@@ -51,10 +51,24 @@ static CGFloat const kACMagnifyingGlassDefaultScale = 1.5;
 
 - (void)drawRect:(CGRect)rect {
 	CGContextRef context = UIGraphicsGetCurrentContext();
+	CGContextSaveGState(context);
 	CGContextTranslateCTM(context, self.frame.size.width/2, self.frame.size.height/2 );
 	CGContextScaleCTM(context, scale, scale);
 	CGContextTranslateCTM(context, -touchPoint.x, -touchPoint.y + (self.scaleAtTouchPoint? 0 : self.bounds.size.height/2));
 	[self.viewToMagnify.layer renderInContext:context];
+	CGContextRestoreGState(context);
+	
+	UIGraphicsPushContext(context);
+	UIBezierPath* crossHair = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(CGRectGetMidX(self.bounds)-2,CGRectGetMidY(self.bounds)-2,4,4)];
+	/*UIBezierPath* crossHair = [UIBezierPath bezierPath];
+	[crossHair moveToPoint:CGPointMake(CGRectGetMidX(self.bounds),CGRectGetMinY(self.bounds))];
+	[crossHair addLineToPoint:CGPointMake(CGRectGetMidX(self.bounds),CGRectGetMaxY(self.bounds))];
+	[crossHair moveToPoint:CGPointMake(CGRectGetMinX(self.bounds),CGRectGetMidY(self.bounds))];
+	[crossHair addLineToPoint:CGPointMake(CGRectGetMaxX(self.bounds),CGRectGetMidY(self.bounds))];*/
+	[[UIColor colorWithWhite:1 alpha:0.2] setStroke];
+	[crossHair stroke];
+	UIGraphicsPopContext();
 }
+
 
 @end
