@@ -55,6 +55,10 @@ static CGFloat const kACMagnifyingGlassDefaultScale = 1.5;
 	CGContextTranslateCTM(context, self.frame.size.width/2, self.frame.size.height/2 );
 	CGContextScaleCTM(context, scale, scale);
 	CGContextTranslateCTM(context, -touchPoint.x, -touchPoint.y + (self.scaleAtTouchPoint? 0 : self.bounds.size.height/2));
+	
+	//This is a huge performance boost
+	CGContextSetInterpolationQuality(context, kCGInterpolationNone);
+
 	[self.viewToMagnify.layer renderInContext:context];
 	CGContextRestoreGState(context);
 	
