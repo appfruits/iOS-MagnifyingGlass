@@ -58,18 +58,17 @@ static CGFloat const kACMagnifyingGlassDefaultScale = 1.5;
 	
 	//This is a huge performance boost
 	CGContextSetInterpolationQuality(context, kCGInterpolationNone);
-
 	[self.viewToMagnify.layer renderInContext:context];
 	CGContextRestoreGState(context);
 	
 	UIGraphicsPushContext(context);
-	UIBezierPath* crossHair = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(CGRectGetMidX(self.bounds)-2,CGRectGetMidY(self.bounds)-2,4,4)];
+	UIBezierPath* crossHair = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(CGRectGetMidX(self.bounds)-3,CGRectGetMidY(self.bounds)-3,6,6)];
 	/*UIBezierPath* crossHair = [UIBezierPath bezierPath];
 	[crossHair moveToPoint:CGPointMake(CGRectGetMidX(self.bounds),CGRectGetMinY(self.bounds))];
 	[crossHair addLineToPoint:CGPointMake(CGRectGetMidX(self.bounds),CGRectGetMaxY(self.bounds))];
 	[crossHair moveToPoint:CGPointMake(CGRectGetMinX(self.bounds),CGRectGetMidY(self.bounds))];
 	[crossHair addLineToPoint:CGPointMake(CGRectGetMaxX(self.bounds),CGRectGetMidY(self.bounds))];*/
-	[[UIColor colorWithWhite:1 alpha:0.2] setStroke];
+	[[UIColor colorWithWhite:1 alpha:0.4] setStroke];
 	[crossHair stroke];
 	UIGraphicsPopContext();
 }
